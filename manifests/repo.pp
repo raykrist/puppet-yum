@@ -54,7 +54,8 @@ define yum::repo(
   $gpgkey = false,
   $priority = 99,
   $autokeyimport = 'no',
-  $gpgkey_name = false
+  $gpgkey_name = false,
+  $exclude = false
   ){
 
   yumrepo { $name:
@@ -66,7 +67,7 @@ define yum::repo(
     gpgkey => $gpgkey,
 #    failovermethod => $failovermethod,
 #    priority => $priority,
-#    exclude => $exclude,
+    exclude => $exclude,
 #    includepkgs => $includepkgs,
   }
 
