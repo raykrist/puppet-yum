@@ -5,6 +5,7 @@ class yum::repo::epel() {
     mirrorlist      => 'https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch',
     enabled         => 1,
     gpgcheck        => 1,
+    autokeyimport  => 'yes',
     gpgkey          => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6'
   }
 
@@ -19,6 +20,7 @@ class yum::repo::epel() {
   # Add gpgkey file
   yum::gpgkey { 'RPM-GPG-KEY-EPEL-6':
     source => 'puppet:///modules/yum/RPM-GPG-KEY-EPEL-6',
+    before => Yum::Repo['epel']
   }
 
 }
