@@ -1,11 +1,12 @@
 class yum::repo::puppetlabs(
-  $el_version = 6
+  $enabled = 1,
+  $el_version = 6,
 ) {
 
   yum::repo { 'puppetlabs-products':
     desc            => "Puppet Labs Products El ${el_version} - \$basearch",
     baseurl         => "http://yum.puppetlabs.com/el/${el_version}/products/\$basearch",
-    enabled         => 1,
+    enabled         => $enabled,
     gpgcheck        => 1,
     gpgkey          => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs'
   }
@@ -13,7 +14,7 @@ class yum::repo::puppetlabs(
   yum::repo { 'puppetlabs-deps':
     desc            => "Puppet Labs Dependencies El ${el_version} - \$basearch",
     baseurl         => "http://yum.puppetlabs.com/el/${el_version}/dependencies/\$basearch",
-    enabled         => 1,
+    enabled         => $enabled,
     gpgcheck        => 1,
     gpgkey          => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs'
   }
