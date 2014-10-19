@@ -47,11 +47,11 @@
 #
 define yum::repo(
   $desc,
-  $baseurl = false,
-  $mirrorlist = false,
+  $baseurl = undef,
+  $mirrorlist = undef,
   $enabled = 0,
   $gpgcheck = 0,
-  $gpgkey = false,
+  $gpgkey = undef,
   $priority = 99,
   $autokeyimport = 'no',
   $gpgkey_name = false,
