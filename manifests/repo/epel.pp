@@ -1,4 +1,6 @@
-class yum::repo::epel() {
+class yum::repo::epel(
+  $exclude = false
+) {
 
   $releasever = $::operatingsystemmajrelease
 
@@ -8,6 +10,7 @@ class yum::repo::epel() {
     enabled         => 1,
     gpgcheck        => 1,
     autokeyimport   => 'yes',
+    exclude         => $exclude,
     gpgkey_name     => 'epel@fedoraproject.org',
     gpgkey          => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-${$releasever}"
   }
