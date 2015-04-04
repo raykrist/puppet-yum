@@ -3,17 +3,19 @@ class yum::repo::puppetlabs(
   $el_version = 6,
 ) {
 
+  $releasever = $::operatingsystemmajrelease
+
   yum::repo { 'puppetlabs-products':
-    desc            => "Puppet Labs Products El ${el_version} - \$basearch",
-    baseurl         => "http://yum.puppetlabs.com/el/${el_version}/products/\$basearch",
+    desc            => "Puppet Labs Products El ${$releasever} - \$basearch",
+    baseurl         => "http://yum.puppetlabs.com/el/${$releasever}/products/\$basearch",
     enabled         => $enabled,
     gpgcheck        => 1,
     gpgkey          => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs'
   }
 
   yum::repo { 'puppetlabs-deps':
-    desc            => "Puppet Labs Dependencies El ${el_version} - \$basearch",
-    baseurl         => "http://yum.puppetlabs.com/el/${el_version}/dependencies/\$basearch",
+    desc            => "Puppet Labs Dependencies El ${$releasever} - \$basearch",
+    baseurl         => "http://yum.puppetlabs.com/el/${$releasever}/dependencies/\$basearch",
     enabled         => $enabled,
     gpgcheck        => 1,
     gpgkey          => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs'
