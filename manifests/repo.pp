@@ -46,19 +46,23 @@
 # Raymond Kristiansen <st02221@uib.no>
 #
 define yum::repo(
-  $desc,
-  $baseurl = undef,
-  $mirrorlist = undef,
+  $ensure = present,
+  $desc = '',
+  $baseurl = false,
+  $mirrorlist = false,
   $enabled = 0,
   $gpgcheck = 0,
-  $gpgkey = undef,
+  $gpgkey = false,
   $priority = 99,
   $autokeyimport = 'no',
   $gpgkey_name = false,
-  $exclude = false
+  $exclude = false,
+  $includepkgs = undef
   ){
 
+  # Ensure require puppet version 3.5+
   yumrepo { $name:
+#    ensure => $ensure,
     descr => $desc,
     baseurl => $baseurl,
     mirrorlist => $mirrorlist,
@@ -68,7 +72,7 @@ define yum::repo(
 #    failovermethod => $failovermethod,
 #    priority => $priority,
     exclude => $exclude,
-#    includepkgs => $includepkgs,
+    includepkgs => $includepkgs,
   }
 
   if $autokeyimport == 'yes' and $gpgkey {
