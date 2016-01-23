@@ -1,0 +1,5 @@
+# This file is managed by PUPPET. Do not edit!
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+0 <%=@hour%> * * <%= @weekday %> root test -f /var/lock/subsys/yum-cron && exec /usr/sbin/yum-cron &>/dev/null
