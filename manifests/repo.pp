@@ -14,9 +14,9 @@
 #
 # [*mirrorlist*]
 #   URL for the mirror list
-# 
+#
 # [*enabled*]
-#   Unless this is 1 or true, we will not be able to use the repo without 
+#   Unless this is 1 or true, we will not be able to use the repo without
 #   --enablerepo=*namevar* on the command line for yum.
 #
 # [*gpgkey*]
@@ -48,38 +48,37 @@
 define yum::repo(
   $ensure = present,
   $desc = '',
-  $baseurl = false,
-  $mirrorlist = false,
+  $baseurl = undef,
+  $mirrorlist = undef,
   $enabled = 0,
   $gpgcheck = 0,
-  $gpgkey = false,
+  $gpgkey = undef,
   $priority = 99,
   $autokeyimport = 'no',
-  $gpgkey_name = false,
-  $exclude = false,
+  $gpgkey_name = undef,
+  $exclude = undef,
   $includepkgs = undef
   ){
 
   # Ensure require puppet version 3.5+
   yumrepo { $name:
-#    ensure => $ensure,
-    descr => $desc,
-    baseurl => $baseurl,
-    mirrorlist => $mirrorlist,
-    enabled => $enabled,
-    gpgcheck => $gpgcheck,
-    gpgkey => $gpgkey,
-#    failovermethod => $failovermethod,
-#    priority => $priority,
-    exclude => $exclude,
+    ensure      => $ensure,
+    descr       => $desc,
+    baseurl     => $baseurl,
+    mirrorlist  => $mirrorlist,
+    enabled     => $enabled,
+    gpgcheck    => $gpgcheck,
+    gpgkey      => $gpgkey,
+    exclude     => $exclude,
     includepkgs => $includepkgs,
   }
 
   if $autokeyimport == 'yes' and $gpgkey {
     exec { "rpmkey_add_${name}":
       command => "rpm --import ${gpgkey}",
-      path => '/sbin:/bin:/usr/sbin:/usr/bin',
-      unless => "rpm -q --qf \"%{NAME}-%{VERSION}-%{RELEASE} \n %{SUMMARY} \n\" gpg-pubkey | grep -i '${gpgkey_name}' 2>/dev/null"
+      path    => '/sbin:/bin:/usr/sbin:/usr/bin',
+      unless  => "rpm -q --qf \"%{NAME}-%{VERSION}-%{RELEASE} \n %{SUMMARY} \
+        \n\" gpg-pubkey | grep -i '${gpgkey_name}' 2>/dev/null"
     }
-  } 
+  }
 }
